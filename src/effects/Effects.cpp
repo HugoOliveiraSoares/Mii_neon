@@ -1,8 +1,8 @@
-#include "Modes.h"
+#include "Effects.h"
 
-Modes::Modes() {}
+Effects::Effects() {}
 
-void Modes::init() {
+void Effects::init() {
 
   delay(1500);
   FastLED.addLeds<WS2812B, 1, GRB>(leds, 0, NUM_LEDS_STRIP1)
@@ -13,14 +13,14 @@ void Modes::init() {
   FastLED.setMaxPowerInVoltsAndMilliamps(5, MAX_POWER_MILLIAMPS);
 }
 
-void Modes::fill(CRGB color, int length) {
+void Effects::fill(CRGB color, int length) {
   for (int i = 0; i < length; i++) {
     this->leds[i] = color;
   }
   FastLED.show();
 }
 
-void Modes::blink(CRGB color, CRGB color2, int time) {
+void Effects::blink(CRGB color, CRGB color2, int time) {
 
   this->fill(color, NUM_TOTAL_LEDS);
 
@@ -31,10 +31,12 @@ void Modes::blink(CRGB color, CRGB color2, int time) {
   delay(time);
 }
 
-void Modes::blink(CRGB color) { this->blink(color, CRGB::Black, 1000); }
-void Modes::blink(CRGB color, CRGB color2) { this->blink(color, color2, 1000); }
+void Effects::blink(CRGB color) { this->blink(color, CRGB::Black, 1000); }
+void Effects::blink(CRGB color, CRGB color2) {
+  this->blink(color, color2, 1000);
+}
 
-void Modes::pacifica_loop() {
+void Effects::pacifica_loop() {
   // Increment the four "color index start" counters, one for each wave layer.
   // Each is incremented at a different speed, and the speeds vary over time.
   static uint16_t sCIStart1, sCIStart2, sCIStart3, sCIStart4;
@@ -76,8 +78,9 @@ void Modes::pacifica_loop() {
   FastLED.show();
 }
 
-void Modes::pacifica_one_layer(CRGBPalette16 &p, uint16_t cistart,
-                               uint16_t wavescale, uint8_t bri, uint16_t ioff) {
+void Effects::pacifica_one_layer(CRGBPalette16 &p, uint16_t cistart,
+                                 uint16_t wavescale, uint8_t bri,
+                                 uint16_t ioff) {
   uint16_t ci = cistart;
   uint16_t waveangle = ioff;
   uint16_t wavescale_half = (wavescale / 2) + 20;
@@ -93,7 +96,7 @@ void Modes::pacifica_one_layer(CRGBPalette16 &p, uint16_t cistart,
   }
 }
 
-void Modes::pacifica_add_whitecaps() {
+void Effects::pacifica_add_whitecaps() {
   uint8_t basethreshold = beatsin8(9, 55, 65);
   uint8_t wave = beat8(7);
 
@@ -110,7 +113,7 @@ void Modes::pacifica_add_whitecaps() {
 }
 
 // Deepen the blues and greens
-void Modes::pacifica_deepen_colors() {
+void Effects::pacifica_deepen_colors() {
   for (uint16_t i = 0; i < NUM_TOTAL_LEDS; i++) {
     this->leds[i].blue = scale8(leds[i].blue, 145);
     this->leds[i].green = scale8(leds[i].green, 200);
@@ -118,7 +121,7 @@ void Modes::pacifica_deepen_colors() {
   }
 }
 
-void Modes::cyclon() {
+void Effects::cyclon() {
   static uint8_t hue = 0;
   // First slide the led in one direction
   for (int i = 0; i < NUM_TOTAL_LEDS; i++) {
@@ -147,7 +150,7 @@ void Modes::cyclon() {
   }
 }
 
-void Modes::fadeall() {
+void Effects::fadeall() {
   for (int i = 0; i < NUM_TOTAL_LEDS; i++) {
     leds[i].nscale8(250);
   }

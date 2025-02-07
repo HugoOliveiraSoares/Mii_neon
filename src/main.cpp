@@ -1,15 +1,22 @@
+#include "Effects.h"
 #include "FastLED.h"
-#include "Modes.h"
 
-Modes modes;
+Effects effects;
+
+unsigned long previousMillis = 0;
+const long interval = 6000; // 5 segundos entre os efeitos
+int currentEffect = 0;
 
 void setup() {
-  modes.init();
-  delay(1000);
+  effects.init();
+  delay(100);
 }
 
 void loop() {
-  // modes.blink(CRGB::Red, CRGB::Blue);
-  // EVERY_N_MILLISECONDS(20) { modes.pacifica_loop(); }
-  modes.cyclon();
+  for (int i = 0; i < 5; i++) {
+    effects.blink(CRGB::Green);
+  }
+  delay(500);
+  effects.cyclon();
+  delay(500);
 }

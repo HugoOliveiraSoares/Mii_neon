@@ -7,9 +7,9 @@
 
 #define MAX_POWER_MILLIAMPS 500
 
-class Modes {
+class Effects {
 public:
-  Modes();
+  Effects();
   void init();
   void fill(CRGB color, int length);
   void blink(CRGB color, CRGB color2, int time);
