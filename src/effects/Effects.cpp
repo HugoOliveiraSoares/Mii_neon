@@ -189,3 +189,41 @@ void Effects::snowSparkle(CRGB color, int sparkleDelay, int speedDelay) {
   FastLED.show();
   delay(speedDelay);
 }
+
+void Effects::rainbowCycle() { this->rainbowCycle(20); }
+
+void Effects::rainbowCycle(int speedDelay) {
+  uint8_t *c;
+  uint16_t i, j;
+
+  for (j = 0; j < 256 * 5; j++) { // 5 cycles of all colors on wheel
+    for (i = 0; i < NUM_TOTAL_LEDS; i++) {
+      c = this->wheel(((i * 256 / NUM_TOTAL_LEDS) + j) & 255);
+      this->leds[i] = CRGB(*c, *(c + 1), *(c + 2));
+    }
+    FastLED.show();
+    delay(speedDelay);
+  }
+}
+
+uint8_t *Effects::wheel(uint8_t wheelPos) {
+  static uint8_t c[3];
+
+  if (wheelPos < 85) {
+    c[0] = wheelPos * 3;
+    c[1] = 255 - wheelPos * 3;
+    c[2] = 0;
+  } else if (wheelPos < 170) {
+    wheelPos -= 85;
+    c[0] = 255 - wheelPos * 3;
+    c[1] = 0;
+    c[2] = wheelPos * 3;
+  } else {
+    wheelPos -= 170;
+    c[0] = 0;
+    c[1] = wheelPos * 3;
+    c[2] = 255 - wheelPos * 3;
+  }
+
+  return c;
+}

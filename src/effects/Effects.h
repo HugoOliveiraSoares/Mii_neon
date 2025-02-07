@@ -1,5 +1,6 @@
 #pragma once
 #include "FastLED.h"
+#include <cstdint>
 
 #define NUM_LEDS_STRIP1 21
 #define NUM_LEDS_STRIP2 99
@@ -21,6 +22,8 @@ public:
   void colorWipe(CRGB color);
   void snowSparkle(CRGB color, int sparkleDelay, int speedDelay);
   void snowSparkle(CRGB color);
+  void rainbowCycle();
+  void rainbowCycle(int speedDelay);
 
 private:
   CRGB leds[NUM_TOTAL_LEDS];
@@ -42,4 +45,5 @@ private:
   void pacifica_deepen_colors();
   void fadeall();
   void _colorWipe(CRGB color, int time);
+  uint8_t *wheel(uint8_t wheelPos);
 };
