@@ -1,5 +1,6 @@
 #include "FastLED.h"
 #include "effects/Effects.h"
+#include <cstdlib>
 
 Effects effects;
 
@@ -12,4 +13,4 @@ void setup() {
   delay(100);
 }
 
-void loop() { effects.colorWipe(CRGB::Red, 10); }
+void loop() { effects.snowSparkle(CRGB::White); }

@@ -19,6 +19,8 @@ public:
   void cyclon();
   void colorWipe(CRGB color, int time);
   void colorWipe(CRGB color);
+  void snowSparkle(CRGB color, int sparkleDelay, int speedDelay);
+  void snowSparkle(CRGB color);
 
 private:
   CRGB leds[NUM_TOTAL_LEDS];

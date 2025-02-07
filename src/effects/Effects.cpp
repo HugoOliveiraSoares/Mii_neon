@@ -173,3 +173,19 @@ void Effects::_colorWipe(CRGB color, int time) {
     delay(time);
   }
 }
+
+void Effects::snowSparkle(CRGB color) {
+  this->snowSparkle(color, 15, random(100, 1000));
+}
+
+void Effects::snowSparkle(CRGB color, int sparkleDelay, int speedDelay) {
+  this->fill(color, NUM_TOTAL_LEDS);
+
+  int Pixel = random(NUM_TOTAL_LEDS);
+  this->leds[Pixel] = CRGB::Black;
+  FastLED.show();
+  delay(sparkleDelay);
+  this->leds[Pixel] = color;
+  FastLED.show();
+  delay(speedDelay);
+}
