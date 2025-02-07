@@ -17,6 +17,7 @@ class Effects {
 public:
   Effects();
   void init();
+  void fill(CRGB color);
   void fill(CRGB color, int length);
   void fillSegment(CRGB color, Segment segment);
   void blink(CRGB color, CRGB color2, int time);

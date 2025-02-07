@@ -14,13 +14,14 @@ void setup() {
 
 void loop() {
 
-  effects.fillSegment(CRGB::Blue, seg1);
-  effects.fillSegment(CRGB::Red, seg2);
-  delay(1000);
-  effects.fillSegment(CRGB::Blue, seg2);
-  effects.fillSegment(CRGB::Red, seg1);
-  delay(1000);
+  effects.fill(CRGB::Blue);
+  // effects.fillSegment(CRGB::Blue, seg1);
+  // effects.fillSegment(CRGB::Red, seg2);
   // effects.blink(CRGB::Red);
   // delay(1000);
   // effects.rainbowCycle();
+  // effects.pacifica_loop();
+  // effects.cyclon();
+  // effects.colorWipe(CRGB::Green);
+  // effects.snowSparkle(CRGB::White);
 }

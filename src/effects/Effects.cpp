@@ -13,6 +13,8 @@ void Effects::init() {
   FastLED.setMaxPowerInVoltsAndMilliamps(5, MAX_POWER_MILLIAMPS);
 }
 
+void Effects::fill(CRGB color) { this->fill(color, NUM_TOTAL_LEDS); }
+
 void Effects::fill(CRGB color, int length) {
   for (int i = 0; i < length; i++) {
     this->leds[i] = color;
