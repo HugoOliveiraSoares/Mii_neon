@@ -13,3 +13,6 @@ program:
 
 uploadfs:
 	platformio -f -c vim run --target uploadfs
+
+monitor:
+	platformio -f -c vim device monitor --baud 115200
