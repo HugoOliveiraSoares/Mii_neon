@@ -1,5 +1,5 @@
-#include "Effects.h"
 #include "FastLED.h"
+#include "effects/Effects.h"
 
 Effects effects;
 
@@ -12,11 +12,4 @@ void setup() {
   delay(100);
 }
 
-void loop() {
-  for (int i = 0; i < 5; i++) {
-    effects.blink(CRGB::Green);
-  }
-  delay(500);
-  effects.cyclon();
-  delay(500);
-}
+void loop() { effects.colorWipe(CRGB::Red, 10); }

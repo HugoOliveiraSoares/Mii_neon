@@ -17,6 +17,8 @@ public:
   void blink(CRGB color, CRGB color2);
   void pacifica_loop();
   void cyclon();
+  void colorWipe(CRGB color, int time);
+  void colorWipe(CRGB color);
 
 private:
   CRGB leds[NUM_TOTAL_LEDS];
@@ -37,4 +39,5 @@ private:
   void pacifica_add_whitecaps();
   void pacifica_deepen_colors();
   void fadeall();
+  void _colorWipe(CRGB color, int time);
 };

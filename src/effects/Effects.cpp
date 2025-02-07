@@ -155,3 +155,21 @@ void Effects::fadeall() {
     leds[i].nscale8(250);
   }
 }
+
+void Effects::colorWipe(CRGB color) {
+  this->_colorWipe(color, 50);
+  this->_colorWipe(CRGB::Black, 50);
+}
+
+void Effects::colorWipe(CRGB color, int time) {
+  this->_colorWipe(color, time);
+  this->_colorWipe(CRGB::Black, time);
+}
+
+void Effects::_colorWipe(CRGB color, int time) {
+  for (int i = 0; i < NUM_TOTAL_LEDS; i++) {
+    this->leds[i] = color;
+    FastLED.show();
+    delay(time);
+  }
+}
