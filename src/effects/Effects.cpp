@@ -5,9 +5,9 @@ Effects::Effects() {}
 void Effects::init() {
 
   delay(1500);
-  FastLED.addLeds<WS2812B, 1, GRB>(leds, 0, NUM_LEDS_STRIP1)
+  FastLED.addLeds<WS2812B, 2, GRB>(leds, 0, NUM_LEDS_STRIP1)
       .setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<WS2812B, 2, GRB>(leds, NUM_LEDS_STRIP1, NUM_LEDS_STRIP2)
+  FastLED.addLeds<WS2812B, 0, GRB>(leds, NUM_LEDS_STRIP1, NUM_LEDS_STRIP2)
       .setCorrection(TypicalLEDStrip);
   FastLED.setBrightness(255);
   FastLED.setMaxPowerInVoltsAndMilliamps(5, MAX_POWER_MILLIAMPS);
@@ -17,6 +17,22 @@ void Effects::fill(CRGB color, int length) {
   for (int i = 0; i < length; i++) {
     this->leds[i] = color;
   }
+  FastLED.show();
+}
+
+void Effects::fillSegment(CRGB color, Segment segment) {
+  int endPos = segment.start + segment.length;
+
+  // Garante que o segmento não ultrapasse os limites do array
+  if (segment.start < 0 || segment.start >= NUM_TOTAL_LEDS)
+    return;
+  if (endPos > NUM_TOTAL_LEDS)
+    endPos = NUM_TOTAL_LEDS;
+
+  for (int i = segment.start; i < endPos; i++) {
+    this->leds[i] = color;
+  }
+
   FastLED.show();
 }
 
