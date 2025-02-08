@@ -34,7 +34,7 @@ void setup() {
 
 void loop() {
 
-  effects.fill(CRGB::Blue);
+  // effects.fill(CRGB::Blue);
   // effects.fillSegment(CRGB::Blue, seg1);
   // effects.fillSegment(CRGB::Red, seg2);
   // effects.blink(CRGB::Red);
