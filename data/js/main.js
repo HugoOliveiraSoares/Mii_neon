@@ -2,6 +2,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     adjustTabs();
     colorPickInit();
     getBright();
+    fetchEffects();
 });
 
 function colorPickInit() {
@@ -125,4 +126,35 @@ function setBright(bright) {
         .catch((e) => {
             console.log(e);
         });
+}
+
+function fetchEffects() {
+    fetch("/effects")
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.effects && Array.isArray(data.effects)) {
+                createEffectButtons(data.effects);
+            }
+        })
+        .catch((error) => console.error("Erro ao buscar efeitos:", error));
+}
+
+function createEffectButtons(effects) {
+    const container = document.getElementById("effects-container");
+
+    if (!container) {
+        console.error("Elemento #effects-container não encontrado.");
+        return;
+    }
+
+    container.innerHTML = ""; // Limpa antes de adicionar os novos botões
+
+    effects.forEach((effect) => {
+        const button = document.createElement("li");
+        button.className = "btn btn-secondary w-100 my-2";
+        button.textContent = effect;
+        button.onclick = () => selectEffect(effect);
+
+        container.appendChild(button);
+    });
 }

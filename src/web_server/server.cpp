@@ -61,6 +61,22 @@ void WebServer::begin() {
         request->send(200, "text/plain", "Color set successfully");
       });
 
+  server.on("/effects", HTTP_GET, [this](AsyncWebServerRequest *request) {
+    StaticJsonDocument<200> jsonDoc;
+    JsonArray effectsArray = jsonDoc.createNestedArray("effects");
+    std::vector<String> effectsList = ledService.getModes();
+
+    for (const String &effectName : effectsList) {
+      effectsArray.add(effectName);
+    }
+
+    String response;
+    serializeJson(jsonDoc, response);
+    request->send(200, "application/json", response);
+  });
+
+  server.begin();
+
   server.onNotFound([](AsyncWebServerRequest *request) {
     request->send(404, "text/plain", "Resource not found");
   });

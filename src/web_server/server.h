@@ -4,6 +4,7 @@
 #include <ArduinoJson.h>
 #include <ESPAsyncWebServer.h>
 #include <LittleFS.h>
+#include <vector>
 
 class WebServer {
 public:
