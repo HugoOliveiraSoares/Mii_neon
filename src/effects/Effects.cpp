@@ -10,7 +10,8 @@ void Effects::init() {
   FastLED.addLeds<WS2812B, 0, GRB>(leds, NUM_LEDS_STRIP1, NUM_LEDS_STRIP2)
       .setCorrection(TypicalLEDStrip);
   FastLED.setBrightness(255);
-  FastLED.setMaxPowerInVoltsAndMilliamps(5, MAX_POWER_MILLIAMPS);
+  this->fill(CRGB::Black);
+  FastLED.clear();
 }
 
 void Effects::fill(CRGB color) { this->fill(color, NUM_TOTAL_LEDS); }

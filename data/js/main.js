@@ -33,7 +33,14 @@ function colorPickInit() {
     });
 
     colorPicker.on("color:change", function (color) {
-        console.log(color.rgbString);
+        const _color = {
+            rgb: {
+                r: color.red,
+                g: color.green,
+                b: color.blue,
+            },
+        };
+        setColor(_color);
     });
 }
 
@@ -62,7 +69,60 @@ function getBright() {
     document.getElementById("brightInput").addEventListener(
         "input",
         function () {
-            console.log("Valor do brilho:", this.value);
+            const _bright = {
+                bright: this.value,
+            };
+            setBright(_bright);
         },
     );
+}
+
+function setColor(color) {
+    console.log(color);
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(color),
+    };
+
+    fetch("/setColor", options)
+        .then((data) => {
+            if (!data.ok) {
+                throw Error(data.status);
+            }
+            return data.json();
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+}
+
+function setBright(bright) {
+    console.log(bright);
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bright),
+    };
+
+    fetch("/setBright", options)
+        .then((data) => {
+            if (!data.ok) {
+                throw Error(data.status);
+            }
+            return data.json();
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
 }
