@@ -1,7 +1,4 @@
 #include "server.h"
-#include "../effects/Effects.h"
-
-extern Effects effects;
 
 WebServer::WebServer() : server(80) {}
 
@@ -16,8 +13,8 @@ void WebServer::begin() {
   // Endpoint to set the color of the LED strip
   server.on(
       "/setColor", HTTP_POST, [](AsyncWebServerRequest *request) {}, NULL,
-      [](AsyncWebServerRequest *request, uint8_t *data, size_t len,
-         std::size_t index, std::size_t total) {
+      [this](AsyncWebServerRequest *request, uint8_t *data, size_t len,
+             std::size_t index, std::size_t total) {
         // Parse the JSON
         StaticJsonDocument<200> doc;
         DeserializationError error = deserializeJson(doc, data, len);
@@ -41,7 +38,7 @@ void WebServer::begin() {
         // ignore
 
         // Set the color using the Effects class
-        effects.fill(CRGB(r, g, b));
+        ledService.setColor(CRGB(r, g, b));
 
         // Send a response
         request->send(200, "text/plain", "Color set successfully");
