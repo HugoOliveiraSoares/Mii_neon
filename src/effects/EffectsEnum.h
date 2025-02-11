@@ -40,4 +40,23 @@ inline const char *toString(EffectsEnum effect) {
   }
 }
 
+inline EffectsEnum fromString(const String &effectName) {
+  if (effectName == "Estatico")
+    return Estatico;
+  if (effectName == "Blink")
+    return Blink;
+  if (effectName == "Pacifica")
+    return Pacifica;
+  if (effectName == "Cyclon")
+    return Cyclon;
+  if (effectName == "ColorWipe")
+    return ColorWipe;
+  if (effectName == "SnowSparkle")
+    return SnowSparkle;
+  if (effectName == "Rainbow")
+    return Rainbow;
+  return static_cast<EffectsEnum>(
+      -1); // Retorna um valor inválido se a string não for encontrada
+}
+
 #endif

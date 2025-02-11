@@ -8,8 +8,12 @@ public:
   LedService();
   void setColor(CRGB color);
   void setBright(int bright);
-  void setMode();
+  int setMode(String effect);
   std::vector<String> getModes();
+  EffectsEnum getCurrentEffect();
+  CRGB getCurrentColor();
 
 private:
+  EffectsEnum currentEffect;
+  CRGB currentColor;
 };

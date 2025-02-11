@@ -13,5 +13,4 @@ public:
 
 private:
   AsyncWebServer server;
-  LedService ledService;
 };

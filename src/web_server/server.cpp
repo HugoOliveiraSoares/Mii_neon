@@ -1,5 +1,7 @@
 #include "server.h"
 
+extern LedService ledService;
+
 WebServer::WebServer() : server(80) {}
 
 void WebServer::begin() {
@@ -12,8 +14,8 @@ void WebServer::begin() {
 
   server.on(
       "/setColor", HTTP_POST, [](AsyncWebServerRequest *request) {}, NULL,
-      [this](AsyncWebServerRequest *request, uint8_t *data, size_t len,
-             std::size_t index, std::size_t total) {
+      [](AsyncWebServerRequest *request, uint8_t *data, size_t len,
+         std::size_t index, std::size_t total) {
         StaticJsonDocument<200> doc;
         DeserializationError error = deserializeJson(doc, data, len);
 
@@ -34,18 +36,20 @@ void WebServer::begin() {
 
         ledService.setColor(CRGB(r, g, b));
 
-        request->send(200, "text/plain", "Color set successfully");
+        request->send(200, "application/json",
+                      "{\"response\":\"Color set successfully\"}");
       });
 
   server.on(
       "/setBright", HTTP_POST, [](AsyncWebServerRequest *request) {}, NULL,
-      [this](AsyncWebServerRequest *request, uint8_t *data, size_t len,
-             std::size_t index, std::size_t total) {
+      [](AsyncWebServerRequest *request, uint8_t *data, size_t len,
+         std::size_t index, std::size_t total) {
         StaticJsonDocument<200> doc;
         DeserializationError error = deserializeJson(doc, data, len);
 
         if (error) {
-          request->send(400, "text/plain", "Invalid JSON");
+          request->send(400, "application/json",
+                        "{\"error\":\"Invalid JSON\"}");
           return;
         }
 
@@ -58,10 +62,11 @@ void WebServer::begin() {
         int bright = doc["bright"];
         ledService.setBright(bright);
 
-        request->send(200, "text/plain", "Color set successfully");
+        request->send(200, "application/json",
+                      "{\"response\":\"Bright set successfully\"}");
       });
 
-  server.on("/effects", HTTP_GET, [this](AsyncWebServerRequest *request) {
+  server.on("/effects", HTTP_GET, [](AsyncWebServerRequest *request) {
     StaticJsonDocument<200> jsonDoc;
     JsonArray effectsArray = jsonDoc.createNestedArray("effects");
     std::vector<String> effectsList = ledService.getModes();
@@ -74,6 +79,36 @@ void WebServer::begin() {
     serializeJson(jsonDoc, response);
     request->send(200, "application/json", response);
   });
+
+  server.on(
+      "/effects", HTTP_POST, [](AsyncWebServerRequest *request) {}, NULL,
+      [](AsyncWebServerRequest *request, uint8_t *data, size_t len,
+         std::size_t index, std::size_t total) {
+        StaticJsonDocument<200> jsonDoc;
+
+        DeserializationError error = deserializeJson(jsonDoc, data, len);
+
+        if (error) {
+          request->send(400, "text/plain", "Invalid JSON");
+          return;
+        }
+
+        if (!jsonDoc.containsKey("effect")) {
+          request->send(400, "application/json",
+                        "{\"error\":\"Missing effect object\"}");
+          return;
+        }
+
+        String effect = jsonDoc["effect"];
+        int r = ledService.setMode(effect);
+        if (r == -1) { // TODO:  Better error message | throw exception
+          request->send(400, "application/json",
+                        "{\"error\":\"Invalid Effect name\"}");
+        }
+
+        request->send(200, "application/json",
+                      "{\"response\":\"Effect set successfully\"}");
+      });
 
   server.begin();
 

@@ -64,6 +64,10 @@ function adjustTabs() {
 
 function selectEffect(effectName) {
     console.log("Efeito selecionado:", effectName);
+    const _effect = {
+        effect: effectName,
+    };
+    setEffects(_effect);
 }
 
 function getBright() {
@@ -157,4 +161,28 @@ function createEffectButtons(effects) {
 
         container.appendChild(button);
     });
+}
+
+function setEffects(effect) {
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(effect),
+    };
+
+    fetch("/effects", options)
+        .then((data) => {
+            if (!data.ok) {
+                throw Error(data.status);
+            }
+            return data.json();
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
 }
