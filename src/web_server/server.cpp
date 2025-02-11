@@ -67,9 +67,11 @@ void WebServer::begin() {
       });
 
   server.on("/effects", HTTP_GET, [](AsyncWebServerRequest *request) {
-    StaticJsonDocument<200> jsonDoc;
-    JsonArray effectsArray = jsonDoc.createNestedArray("effects");
     std::vector<String> effectsList = ledService.getModes();
+
+    DynamicJsonDocument jsonDoc(JSON_ARRAY_SIZE(effectsList.size()) +
+                                JSON_OBJECT_SIZE(1) + 200);
+    JsonArray effectsArray = jsonDoc.createNestedArray("effects");
 
     for (const String &effectName : effectsList) {
       effectsArray.add(effectName);
