@@ -1,72 +1,3 @@
-:root,
-[data-bs-theme="light"] {
-  ---my-border-color: #000000;
-}
-
-[data-bs-theme="dark"] {
-  ---my-border-color: #ffffff;
-}
-
-/* #FD60A4 */
-/* #361227 */
-/* #181331 - background */
-/* #FFC547 */
-/* #ED97A8 */
-/* #ffd885 */
-
-:root[data-bs-theme="mii"] {
-  ---my-border-color: #ffffff;
-
-  /* base color */
-  --bs-body-bg: #181331;
-  --bs-body-color: #ffffff;
-
-  /* primary colors */
-  --bs-primary: #fd60a4;
-  --bs-secondary-bg: #ed97a8;
-  --bs-secondary: #fd60a4;
-
-  /* components */
-  --bs-border-color: #ed97a8;
-  --bs-dark-text-emphasis: #ffffff;
-  --bs-emphasis-color: #ffffff;
-  --bs-warning-text-emphasis: #ffc547;
-
-  .btn-secondary {
-    --bs-btn-color: #ffffff;
-    --bs-btn-bg: #ed97a8;
-    --bs-btn-border-color: #ed97a8;
-    --bs-btn-hover-color: #ffffff;
-    --bs-btn-hover-bg: #fd60a4;
-    --bs-btn-hover-border-color: #fd60a4;
-    --bs-btn-focus-shadow-rgb: 130, 138, 145;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #565e64;
-    --bs-btn-active-border-color: #51585e;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #6c757d;
-    --bs-btn-disabled-border-color: #6c757d;
-  }
-
-  .btn-outline-primary {
-    --bs-btn-color: #361227;
-    --bs-btn-border-color: #361227;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #361227;
-    --bs-btn-hover-border-color: #361227;
-    --bs-btn-focus-shadow-rgb: 13, 110, 253;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #361227;
-    --bs-btn-active-border-color: #361227;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #361227;
-    --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: #361227;
-    --bs-gradient: none;
-  }
-}
-
 body {
   display: flex;
   flex-direction: column;
@@ -231,6 +162,10 @@ a.btn:hover #configBtn {
   align-items: center;
   justify-content: center;
   gap: 8px; /* Espaço entre o ícone e o texto */
+}
+
+#return-btn span svg {
+  fill: var(--bs-link-color);
 }
 
 #atencao {
