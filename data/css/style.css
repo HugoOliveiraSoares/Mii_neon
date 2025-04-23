@@ -115,7 +115,13 @@ a.btn:hover #configBtn {
   justify-content: center;
   gap: 10vw;
   flex-wrap: wrap;
-  margin-top: min(10vh, 80px);
+  margin-top: min(15vh, 140px);
+}
+
+#color-container {
+  display: flex;
+  align-items: flex-start; /* Alinha os itens no início do contêiner */
+  gap: 5vw; /* Espaço entre os elementos */
 }
 
 .tab-content.active {
@@ -222,6 +228,10 @@ a.btn:hover #configBtn {
 }
 
 @media (max-width: 650px) {
+  body {
+    height: 130vh;
+  }
+
   #brightInputLabel {
     display: none;
   }
@@ -238,5 +248,12 @@ a.btn:hover #configBtn {
 
   .btn-group {
     order: 1; /* Move os botões para cima */
+  }
+
+  #color-container {
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+    flex-direction: column;
   }
 }
