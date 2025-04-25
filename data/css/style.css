@@ -78,8 +78,10 @@ a.btn:hover #configBtn {
 }
 
 #brightInput::-webkit-slider-runnable-track {
-  background: var(--bs-dark-text-emphasis); /* Cor da linha */
-  height: 5px; /* Espessura da linha */
+  background: var(--bs-dark-text-emphasis);
+  /* Cor da linha */
+  height: 5px;
+  /* Espessura da linha */
 }
 
 /* Firefox */
@@ -113,15 +115,20 @@ a.btn:hover #configBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10vw;
+  gap: 5vw;
   flex-wrap: wrap;
   margin-top: min(15vh, 140px);
 }
 
+#mii-neon svg {
+  width: 420px;
+  height: 594px;
+}
+
 #color-container {
   display: flex;
-  align-items: flex-start; /* Alinha os itens no início do contêiner */
-  gap: 5vw; /* Espaço entre os elementos */
+  align-items: center;
+  gap: 5vw;
 }
 
 .tab-content.active {
@@ -141,8 +148,8 @@ a.btn:hover #configBtn {
 
 #effects-list ul {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 colunas */
-  gap: 10px; /* Espaço entre os itens */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 #effects-list li {
@@ -177,7 +184,7 @@ a.btn:hover #configBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* Espaço entre o ícone e o texto */
+  gap: 8px;
 }
 
 #return-btn span svg {
@@ -195,7 +202,11 @@ a.btn:hover #configBtn {
 
   #container {
     gap: 5vw;
-    margin-top: 15vh;
+    margin-top: 5vh;
+  }
+
+  #effects {
+    margin-top: 10vh;
   }
 
   #effects-list {
@@ -243,17 +254,22 @@ a.btn:hover #configBtn {
   }
 
   .brightness-control {
-    order: 2; /* Move o brilho para baixo */
+    order: 2;
   }
 
   .btn-group {
-    order: 1; /* Move os botões para cima */
+    order: 1;
   }
 
   #color-container {
     display: flex;
     align-items: center;
-    gap: 2vw;
+    gap: 1vw;
     flex-direction: column;
+  }
+
+  #mii-neon svg {
+    width: 315px;
+    height: 446px;
   }
 }

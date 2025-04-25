@@ -6,8 +6,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 function colorPickInit() {
+
+  var _width = 0;
+
+  if(window.innerHeight <= 750) {
+    _width = 220;
+  } else{
+    _width = 300;
+  }
+
   const colorPicker = new iro.ColorPicker("#colorPicker", {
-    width: 300,
+    width: _width,
     color: "#ffffff", // TODO: Colocar a ultima cor usada, getColor() do esp32
     borderWidth: 2,
     borderColor: "var(---my-border-color)",
