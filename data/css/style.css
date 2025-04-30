@@ -79,13 +79,13 @@ a.btn:hover #configBtn {
 }
 
 #brightInput::-webkit-slider-thumb {
-  background-color: white; /* Cor da bolinha */
-  border: 1px solid black; /* Borda da bolinha */
+  background-color: #fefefe; /* Cor da bolinha */
+  border: 1px solid #1c1a1f; /* Borda da bolinha */
 }
 
 #brightInput::-moz-range-thumb {
-  background-color: white;
-  border: 1px solid black;
+  background-color: #fefefe;
+  border: 1px solid #1c1a1f;
 }
 
 #brightInputLabel {
