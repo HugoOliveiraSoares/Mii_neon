@@ -123,6 +123,10 @@ a.btn:hover #configBtn {
 #mii-neon svg {
   width: 420px;
   height: 594px;
+  stroke: #f0f0f0;
+  stroke-width: 0.5;
+  fill-opacity: 1;
+  fill: #18181c;
 }
 
 #color-container {
