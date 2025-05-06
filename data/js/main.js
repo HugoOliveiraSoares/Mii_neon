@@ -3,11 +3,25 @@ window.addEventListener("DOMContentLoaded", (event) => {
   colorPickInit();
   getBright();
   fetchEffects();
+  setSegmentColor();
 });
 
+let selectedClass = null;
+let lastSelectedPaths = [];
+const lastStrokeMap = new Map();
+const lastStrokeWidthMap = new Map();
+
 function colorPickInit() {
+  var _width = 0;
+
+  if (window.innerHeight <= 750) {
+    _width = 220;
+  } else {
+    _width = 300;
+  }
+
   const colorPicker = new iro.ColorPicker("#colorPicker", {
-    width: 300,
+    width: _width,
     color: "#ffffff", // TODO: Colocar a ultima cor usada, getColor() do esp32
     borderWidth: 2,
     borderColor: "var(---my-border-color)",
@@ -43,6 +57,15 @@ function colorPickInit() {
         b: color.blue,
       },
     };
+    if (!selectedClass) return;
+
+    const paths = document.getElementsByClassName(selectedClass);
+    const hex = color.hexString;
+
+    for (const path of paths) {
+      path.style.fill = hex;
+    }
+    // setSegmentColor(color.hexString);
     setColor(_color);
   });
 }
@@ -184,4 +207,82 @@ function setEffects(effect) {
     .catch((e) => {
       console.log(e);
     });
+}
+
+function getClassPaths() {
+  const miiSvg = document.getElementById("mii-neon");
+  const paths = miiSvg.querySelectorAll("svg path");
+  const clazzSet = new Set();
+
+  paths.forEach((path) => {
+    path.classList.forEach((classe) => clazzSet.add(classe));
+  });
+
+  return Array.from(clazzSet);
+}
+
+// function setSegmentColor(cor) {
+//   const clazz = getClassPaths();
+//   let lastSelected = null;
+//   let lastStroke = "";
+//   let lastStrokeWidth = "";
+//
+//   clazz.forEach((_clazz) => {
+//     const paths = document.getElementsByClassName(_clazz);
+//
+//     for (let index = 0; index < paths.length; index++) {
+//       const path = paths[index];
+//       path.addEventListener("click", function () {
+//         if (lastSelected !== path) {
+//           lastSelected.style.stroke = lastStroke;
+//           lastSelected.style.strokeWidth = lastStrokeWidth;
+//         }
+//
+//         lastStroke = this.getAttribute("stroke");
+//         lastStrokeWidth = this.getAttribute("stroke-width");
+//
+//         path.style.fill = cor;
+//         path.style.stroke = "white";
+//         path.style.strokeWidth = "1";
+//
+//         lastSelected = path;
+//       });
+//     }
+//   });
+// }
+
+function setSegmentColor() {
+  const clazzes = getClassPaths();
+
+  clazzes.forEach((_clazz) => {
+    const paths = document.getElementsByClassName(_clazz);
+
+    // Adiciona o ouvinte de clique apenas no primeiro elemento do grupo
+    if (paths.length > 0) {
+      paths[0].addEventListener("click", function () {
+        // Restaurar estilos anteriores
+        lastSelectedPaths.forEach((path) => {
+          path.style.stroke = lastStrokeMap.get(path) || "";
+          path.style.strokeWidth = lastStrokeWidthMap.get(path) || "";
+        });
+
+        // Limpar dados anteriores
+        lastSelectedPaths = [];
+        lastStrokeMap.clear();
+        lastStrokeWidthMap.clear();
+
+        selectedClass = _clazz;
+
+        // Aplicar novo estilo aos paths com a mesma classe
+        for (const path of paths) {
+          lastStrokeMap.set(path, path.getAttribute("stroke"));
+          lastStrokeWidthMap.set(path, path.getAttribute("stroke-width"));
+
+          path.style.stroke = "white";
+          path.style.strokeWidth = "1";
+          lastSelectedPaths.push(path);
+        }
+      });
+    }
+  });
 }
